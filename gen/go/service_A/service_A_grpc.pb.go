@@ -47,7 +47,7 @@ func (c *serviceA_APIClient) GetCsvData(ctx context.Context, in *DataRequest, op
 // for forward compatibility
 type ServiceA_APIServer interface {
 	GetCsvData(context.Context, *DataRequest) (*DataResponse, error)
-	mustEmbedUnimplementedServiceA_APIServer()
+	//mustEmbedUnimplementedServiceA_APIServer()
 }
 
 // UnimplementedServiceA_APIServer must be embedded to have forward compatible implementations.
@@ -57,14 +57,14 @@ type UnimplementedServiceA_APIServer struct {
 func (UnimplementedServiceA_APIServer) GetCsvData(context.Context, *DataRequest) (*DataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCsvData not implemented")
 }
-func (UnimplementedServiceA_APIServer) mustEmbedUnimplementedServiceA_APIServer() {}
+//func (UnimplementedServiceA_APIServer) mustEmbedUnimplementedServiceA_APIServer() {}
 
 // UnsafeServiceA_APIServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ServiceA_APIServer will
 // result in compilation errors.
-type UnsafeServiceA_APIServer interface {
-	mustEmbedUnimplementedServiceA_APIServer()
-}
+//type UnsafeServiceA_APIServer interface {
+//	mustEmbedUnimplementedServiceA_APIServer()
+//}
 
 func RegisterServiceA_APIServer(s grpc.ServiceRegistrar, srv ServiceA_APIServer) {
 	s.RegisterService(&ServiceA_API_ServiceDesc, srv)
