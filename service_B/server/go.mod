@@ -9,7 +9,7 @@ replace github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B => ..
 require (
 	github.com/arangodb/go-driver v1.3.2
 	github.com/myk4040okothogodo/JumiaABmicroservices/db v0.0.0-00010101000000-000000000000
-	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B v0.0.0-00010101000000-000000000000
+	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B v0.0.0-20220609223108-628e2bf87e55
 	google.golang.org/grpc v1.47.0
 )
 

@@ -21,7 +21,7 @@ const (
 
 type Server struct {
     database             driver.Database
-    ordersCollection     driver.collection
+    ordersCollection     driver.Collection
 }
 
 func NewServer(ctx context.Context, database driver.Database) (*Server, error) {
@@ -48,7 +48,7 @@ func (s *Server) Run() {
        port = defaultPort
     }
 
-    listener, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%s", ports))
+    listener, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%s", port))
     if err != nil {
       log.Fatal("net.Listen failed")
       return
@@ -62,7 +62,7 @@ func (s *Server) Run() {
     log.Printf("Starting Service_B server on port %s", port)
 
     go func() {
-        grpcServer.Server(listener)
+        grpcServer.Serve(listener)
     }()
 }
 
@@ -134,11 +134,11 @@ func (s *Server) GetAllOrders(ctx context.Context, or *service_bv1.GetOrdersRequ
         order.Id = meta.Key
         allOrders = append(allOrders, order)
     }
-    return &service_b.GetOrdersResponse{Orders: allOrders}, nil
+    return &service_bv1.GetOrdersResponse{Orders: allOrders}, nil
 }
 
 
-func (s *Server) GetAllCountryOrders(ctx context.Context, or *service_bv1.GetCountryOrdersRequest) (*service_bv1.GetCountryOrdersResponse){
+func (s *Server) GetAllCountryOrders(ctx context.Context, or *service_bv1.GetCountryOrdersRequest) (*service_bv1.GetCountryOrdersResponse, error){
    if or == nil || or.Countrycode == "" {
        return nil, fmt.Errorf("Order countrycode is not provided")
    }
@@ -158,7 +158,7 @@ func (s *Server) GetAllCountryOrders(ctx context.Context, or *service_bv1.GetCou
 
    orders := []*service_bv1.Order{}
    for {
-       order := new(serviceb_v1.Order)
+       order := new(service_bv1.Order)
        meta, err := cursor.ReadDocument(ctx, order)
        if driver.IsNoMoreDocuments(err){
           break
