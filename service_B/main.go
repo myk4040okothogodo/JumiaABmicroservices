@@ -14,7 +14,7 @@ import (
 
 func main(){
 
-  ctx, cancelFn := context.WithTimeout(context.Baackground(), time.Second*5)
+  ctx, cancelFn := context.WithTimeout(context.Background(), time.Second*5)
   defer cancelFn()
 
   database, err := db.Connect(ctx, db.GetDbConfig())

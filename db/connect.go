@@ -16,7 +16,7 @@ func parseEnvVars(key string) string {
     err := godotenv.Load(".env")
 
     if err != nil {
-      log.Fatalf("Error loading .env file")
+      log.Printf("Error loading .env file(reverting to default vars)", err)
     }
 
     return os.Getenv(key)
@@ -77,7 +77,8 @@ func AttachCollection(ctx context.Context, db driver.Database, colName string)(d
 func GetDbConfig() DatabaseConfig{
     dbName := parseEnvVars("ARANGODB_DB")
     if dbName == ""{
-        log.Fatalf("Failed to load environment variables '%s'", "ARANGODB_DB")
+        log.Printf("Failed to load environment variables '%s'", "ARANGODB_DB")
+        dbName ="jumia_ab_microservices"
     }
     return DatabaseConfig {
         Host: DbHost,

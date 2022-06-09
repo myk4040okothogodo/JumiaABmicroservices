@@ -30,7 +30,7 @@ func NewServer(ctx context.Context, database driver.Database) (*Server, error) {
         return nil, err
     }
 
-    _, _, err = collection.EnsurePersistentIndex(ctx, []string{"phonenumber"}, &driver.EnsurePersistentIndexOptions{unique: true})
+    _, _, err = collection.EnsurePersistentIndex(ctx, []string{"phonenumber"}, &driver.EnsurePersistentIndexOptions{Unique: true})
     if err != nil {
        return nil, err
     }
@@ -126,7 +126,7 @@ func (s *Server) GetAllOrders(ctx context.Context, or *service_bv1.GetOrdersRequ
         order := new(service_bv1.Order)
         var meta driver.DocumentMeta
         meta, err := cursor.ReadDocument(ctx, order)
-        if driver.IsNoMoreDocument(err){
+        if driver.IsNoMoreDocuments(err){
           break
         } else if err != nil {
           return nil, fmt.Errorf("Failed to read orders document: %s", err)
@@ -192,7 +192,7 @@ func (s *Server)  GetWeightofAllOrdersPerCountry(ctx context.Context, or *servic
 
    orders := []*service_bv1.Order{}
    for {
-       order := new(serviceb_v1.Order)
+       order := new(service_bv1.Order)
        meta, err := cursor.ReadDocument(ctx, order)
        if driver.IsNoMoreDocuments(err){
           break
@@ -244,7 +244,7 @@ func (s *Server)  GetOrdersAsPerDate(ctx context.Context, or *service_bv1.GetOrd
 
 
 func (s *Server) GetOrdersByWeight(ctx context.Context, or *service_bv1.GetOrdersByWeightRequest)(*service_bv1.GetOrdersByWeightResponse, error){
-    if or == nill || or.Weight == "" {
+    if or == nil || or.Weight == "" {
         return nil, fmt.Errorf("Order weight not provided")
     }
    const queryOrderByWeight = `
@@ -262,7 +262,7 @@ func (s *Server) GetOrdersByWeight(ctx context.Context, or *service_bv1.GetOrder
 
    orders := []*service_bv1.Order{}
    for {
-       order := new(serviceb_v1.Order)
+       order := new(service_bv1.Order)
        meta, err := cursor.ReadDocument(ctx, order)
        if driver.IsNoMoreDocuments(err){
           break
