@@ -127,7 +127,7 @@ type ServiceB_APIServer interface {
 	GetWeightofAllOrdersPerCountry(context.Context, *GetCountryOrdersWeightRequest) (*GetCountryOrdersWeightResponse, error)
 	// Get Orders as per date
 	GetOrdersAsPerDate(context.Context, *GetOrdersasPerDateRequest) (*GetOrdersasPerDateResponse, error)
-	mustEmbedUnimplementedServiceB_APIServer()
+	//mustEmbedUnimplementedServiceB_APIServer()
 }
 
 // UnimplementedServiceB_APIServer must be embedded to have forward compatible implementations.
@@ -155,14 +155,14 @@ func (UnimplementedServiceB_APIServer) GetWeightofAllOrdersPerCountry(context.Co
 func (UnimplementedServiceB_APIServer) GetOrdersAsPerDate(context.Context, *GetOrdersasPerDateRequest) (*GetOrdersasPerDateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrdersAsPerDate not implemented")
 }
-func (UnimplementedServiceB_APIServer) mustEmbedUnimplementedServiceB_APIServer() {}
+//func (UnimplementedServiceB_APIServer) mustEmbedUnimplementedServiceB_APIServer() {}
 
 // UnsafeServiceB_APIServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ServiceB_APIServer will
 // result in compilation errors.
-type UnsafeServiceB_APIServer interface {
-	mustEmbedUnimplementedServiceB_APIServer()
-}
+//type UnsafeServiceB_APIServer interface {
+//	mustEmbedUnimplementedServiceB_APIServer()
+//}
 
 func RegisterServiceB_APIServer(s grpc.ServiceRegistrar, srv ServiceB_APIServer) {
 	s.RegisterService(&ServiceB_API_ServiceDesc, srv)
