@@ -1,0 +1,83 @@
+syntax = "proto3";
+package JumiaABmicroservices.grpc.service_B.v1;
+option go_package = "./gen/go/service_B";
+
+import "proto/service_B/service_B_messages.proto";
+
+
+service ServiceB_API {
+    // get order using id
+    rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+    // Get Order by email
+    rpc GetOrderByEmail(GetOrderByEmailRequest) returns (GetOrderByEmailResponse);
+    // Get orders by weight
+    rpc GetOrdersByWeight(GetOrdersByWeightRequest) returns (GetOrdersByWeightResponse);
+    // Get all orders
+    rpc GetAllOrders(GetOrdersRequest) returns (GetOrdersResponse);
+    // Get all Country Orders
+    rpc GetAllCountryOrders(GetCountryOrdersRequest) returns (GetCountryOrdersResponse);
+    // Get totalweight of Orders per Country
+    rpc GetWeightofAllOrdersPerCountry(GetCountryOrdersWeightRequest) returns (GetCountryOrdersWeightResponse);
+    // Get Orders as per date
+    rpc GetOrdersAsPerDate(GetOrdersasPerDateRequest) returns (GetOrdersasPerDateResponse);
+
+  }
+
+
+
+message GetOrderRequest {
+   string id = 1;
+}
+message GetOrderResponse {
+    Order order = 1;
+}
+
+
+message GetOrderByEmailRequest{
+   string email = 1;
+}
+message GetOrderByEmailResponse{
+  Order order = 1;
+}
+
+
+message GetOrdersByWeightRequest{
+  string weight = 1;
+}
+message GetOrdersByWeightResponse{
+  repeated Order orders = 1;
+}
+
+
+
+message GetOrdersRequest {
+}
+message GetOrdersResponse{
+    repeated Order orders = 1;
+}
+
+
+
+message GetCountryOrdersRequest{
+   string countrycode = 1;
+}
+message GetCountryOrdersResponse{
+   repeated Order orders = 1;
+}
+
+
+
+message GetOrdersasPerDateRequest{
+    string date = 1;
+}
+message GetOrdersasPerDateResponse{
+    repeated Order orders =1;
+}
+
+
+message GetCountryOrdersWeightRequest{
+    string countrycode = 1;
+}
+message GetCountryOrdersWeightResponse {
+    repeated Order orders = 1;
+}

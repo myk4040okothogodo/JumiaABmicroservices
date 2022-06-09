@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package JumiaABmicroservices.grpc.service_A.v1;
+option go_package = "./gen/go/service_A";
+
+// Order definition
+
+message Order_A {
+  string id       = 1;
+  string email    = 2;
+  string weight   = 3;
+  string phonenumber = 4;
+  string countrycode = 5;
+
+}
