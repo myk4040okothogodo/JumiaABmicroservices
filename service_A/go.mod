@@ -9,7 +9,7 @@ require github.com/myk4040okothogodo/JumiaABmicroservices/service_A/server v0.0.
 require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
-	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A v0.0.0-20220609172311-79ecb79acd40 // indirect
+	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A v0.0.0-20220609205855-b114a567b7aa // indirect
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
 	golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4 // indirect
 	golang.org/x/text v0.3.3 // indirect

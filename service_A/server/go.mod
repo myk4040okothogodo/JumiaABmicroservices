@@ -6,7 +6,7 @@ replace github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A => ..
 
 require (
 	github.com/joho/godotenv v1.4.0
-	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A v0.0.0-20220609172311-79ecb79acd40
+	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A v0.0.0-20220609205855-b114a567b7aa 
 	google.golang.org/grpc v1.47.0
 )
 
