@@ -2,7 +2,6 @@ package resolvers
 
 import (
     "context"
-    "log"
     service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
     "github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/model"
     "github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services"
