@@ -8,7 +8,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/gen v0.0.0-20220610072511-b0543bf2943c
 	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/resolvers v0.0.0-20220610072511-b0543bf2943c
-	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services v0.0.0-20220610072511-b0543bf2943c
+	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services v0.0.0-20220610073145-f48e4849383a 
 )
 
 require (

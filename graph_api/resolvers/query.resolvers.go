@@ -4,6 +4,7 @@ package resolvers
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
+  "log"
 	"context"
 	"fmt"
   service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
@@ -51,7 +52,7 @@ func (r *queryResolver) Orders(ctx context.Context, id *string, email *string, w
     orders = append(orders, service2GraphOrder(GetOrderByEmailResponse.Order))
   
   } else {
-    GetOrdersRequest, err := r.services.ServiceB(). GetAllOrders(ctx, $service_bv1.GetOrdersRequest{})
+    GetOrdersRequest, err := r.services.ServiceB(). GetAllOrders(ctx, &service_bv1.GetOrdersRequest{})
     if err != nil {
         return nil, err
     }
