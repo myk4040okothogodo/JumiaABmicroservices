@@ -1,0 +1,17 @@
+type Order {
+    id: String!
+    email: String!
+    weight: String!
+    phonenumber: String!
+    countrycode: String!
+}
+
+
+
+input OrderInput {
+    id: String!
+    email: String!
+    weight: String!
+    phonenumber: String!
+    countrycode: String!
+}

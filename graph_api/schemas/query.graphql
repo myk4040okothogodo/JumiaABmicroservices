@@ -1,0 +1,4 @@
+type Query {
+    #Orders
+    orders(id: String, email: String, weight: String, phonenumber: String, countrycode: String): [Order!]
+  }
