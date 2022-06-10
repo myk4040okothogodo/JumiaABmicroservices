@@ -1,10 +1,8 @@
 package resolvers
 
 import (
-    "context"
     service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
     "github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/model"
-    "github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services"
 )
 
 
@@ -32,7 +30,7 @@ func graph2ServiceOrderInput(orderInput *model.OrderInput) *service_bv1.Order {
 
 
 func softDeference(field string) string {
-    if field == nil {
+    if *field == nil {
         return ""
     }
     return *field

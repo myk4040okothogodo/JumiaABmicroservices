@@ -5,17 +5,18 @@ package resolvers
 
 import (
 	"context"
+  "fmt"
   service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
 	"github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/gen"
 	"github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/model"
 )
 
 func (r *mutationResolver) CreateOrder(ctx context.Context, inputData model.OrderInput) (*model.Order, error) {
-	panic(fmt.Errorf("not implemented"))
+	return &service_bv1.Order{},nil
 }
 
 func (r *mutationResolver) DeleteOrder(ctx context.Context, id string) (bool, error) {
-	panic(fmt.Errorf("not implemented"))
+	return true, nil
 }
 
 // Mutation returns gen.MutationResolver implementation.
