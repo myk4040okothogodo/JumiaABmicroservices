@@ -6,6 +6,8 @@ import "proto/service_B/service_B_messages.proto";
 
 
 service ServiceB_API {
+    // Populate database with Orders
+    rpc PopulateDatabaseWithOrders(PopulateDatabaseWithOrdersRequest) returns (PopulateDatabaseWithOrdersResponse)
     // get order using id
     rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
     // Get Order by email
@@ -20,10 +22,21 @@ service ServiceB_API {
     rpc GetWeightofAllOrdersPerCountry(GetCountryOrdersWeightRequest) returns (GetCountryOrdersWeightResponse);
     // Get Orders as per date
     rpc GetOrdersAsPerDate(GetOrdersasPerDateRequest) returns (GetOrdersasPerDateResponse);
-
+    // Add a new Order
+    rpc AddOrder(AddOrderRequest) return (AddOrderResponse);
+    // Delete Order request
+    rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderResponse);
   }
 
 
+
+
+message PopulateDatabaseWithOrdersRequest{
+    repeated Order orders = 1;
+}
+message PopulateDatabaseWithOrdersResponse{
+   bool success = 1;
+}
 
 message GetOrderRequest {
    string id = 1;
@@ -49,13 +62,11 @@ message GetOrdersByWeightResponse{
 }
 
 
-
 message GetOrdersRequest {
 }
 message GetOrdersResponse{
     repeated Order orders = 1;
 }
-
 
 
 message GetCountryOrdersRequest{
@@ -64,7 +75,6 @@ message GetCountryOrdersRequest{
 message GetCountryOrdersResponse{
    repeated Order orders = 1;
 }
-
 
 
 message GetOrdersasPerDateRequest{
@@ -80,4 +90,20 @@ message GetCountryOrdersWeightRequest{
 }
 message GetCountryOrdersWeightResponse {
     repeated Order orders = 1;
+}
+
+
+message AddOrderRequest{
+    Order order = 1;
+}
+message AddOrderResponse{
+    Order order = 1;
+}
+
+
+message DeleteOrderRequest{
+    string id = 1;
+}
+message DeleteOrderResponse{
+
 }
