@@ -33,5 +33,5 @@ func softDeference(field string) string {
     if field == "" {
         return ""
     }
-    return *field
+    return field
 }
