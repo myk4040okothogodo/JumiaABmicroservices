@@ -84,8 +84,8 @@ github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/gen v0.0.0-202206100
 github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/gen v0.0.0-20220610072511-b0543bf2943c/go.mod h1:6fgy/e2spfMBZsd2LC0Hvkdbx8PruCovfZ3uaROINAk=
 github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/model v0.0.0-20220610071312-0375c1474ac5 h1:C0Mm3Ht90qB982APa1K8D6tGIJCCAjfZ0YB+cfy0xT4=
 github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/model v0.0.0-20220610071312-0375c1474ac5/go.mod h1:9dunQuQr/NSUON1lOrw9GLDZhfxgZUGRft2Xr3uvZBQ=
-github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/resolvers v0.0.0-20220610081513-1f956539a603 h1:WXZzQqWS9VkZhvZfvMyikQhlfR3wRo0sT/Inl+IKrMw=
-github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/resolvers v0.0.0-20220610081513-1f956539a603/go.mod h1:zPei9nIcVtPR1cYIoeIVdI+UGKv8GsuiipqltCQ1Koo=
+github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/resolvers v0.0.0-20220610082030-246a1f32c57f h1:15W2PTvQXuGQI+XqcEO9GWNwRvsPWULIvpXxAXTYV9U=
+github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/resolvers v0.0.0-20220610082030-246a1f32c57f/go.mod h1:zPei9nIcVtPR1cYIoeIVdI+UGKv8GsuiipqltCQ1Koo=
 github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services v0.0.0-20220610073145-f48e4849383a h1:2EGhjw38O+d/gQ3EOe06gGs3DGQJON9axS7jTT+pKFM=
 github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services v0.0.0-20220610073145-f48e4849383a/go.mod h1:uh4xYhm0ZPALkOOJ8SDTh9LzGogT+dYQinKyJlhF4KA=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
