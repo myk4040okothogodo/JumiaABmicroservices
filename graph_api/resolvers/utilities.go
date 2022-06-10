@@ -31,7 +31,7 @@ func graph2ServiceOrderInput(orderInput *model.OrderInput) *service_bv1.Order {
 }
 
 
-func softDeference(field *string) string {
+func softDeference(field string) string {
     if field == nil {
         return ""
     }
