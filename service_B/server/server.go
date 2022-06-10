@@ -40,7 +40,7 @@ func NewServer(ctx context.Context, database driver.Database, sa service_av1.Ser
     return &Server {
         database: database,
         ordersCollection: collection,
-        sa
+        sa: sa,
     }, nil
 }
 
@@ -284,7 +284,7 @@ func (s *Server) AddOrder(ctx context.Context, or *service_bv1.AddOrderRequest) 
 		return nil, fmt.Errorf("Order is not provided")
 	}
 
-	meta, err := s.ordersCollection.CreateDocument(ctx, in.Order)
+	meta, err := s.ordersCollection.CreateDocument(ctx, or.Order)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create order: %s", err)
@@ -299,7 +299,7 @@ func (s *Server) DeleteOrder(ctx context.Context, or *service_bv1.DeleteOrderReq
 		return nil, fmt.Errorf("Order id is not provided")
 	}
 
-	_, err := s.ordersCollection.RemoveDocument(ctx, in.Id)
+	_, err := s.ordersCollection.RemoveDocument(ctx, or.Id)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to remove existing order: %s", err)
 	}
@@ -307,12 +307,12 @@ func (s *Server) DeleteOrder(ctx context.Context, or *service_bv1.DeleteOrderReq
 	return &service_bv1.DeleteOrderResponse{}, nil
 }
 
-func( s *Server) PopulateDatabaseWithOrders(ctx context.Context  or *service_bv1.PopulateDatabaseWithOrdersRequest)( *service_bv1.PopulateDatabaseWithOrdersResponse, error){
+func( s *Server) PopulateDatabaseWithOrders(ctx context.Context,  or *service_bv1.PopulateDatabaseWithOrdersRequest)( *service_bv1.PopulateDatabaseWithOrdersResponse, error){
     if or == nil || len(or.Orders) == 0 {
         return nil, fmt.Errorf("Orders are not provided")
     }
     odz := &service_av1.DataRequest{
-        Token: "929302490shdjsasfd"
+        Token: "92930249056546shdjsasfd",
     }
 
     resp, err := s.sa.GetCsvData(ctx, odz)
@@ -323,7 +323,7 @@ func( s *Server) PopulateDatabaseWithOrders(ctx context.Context  or *service_bv1
     for _, order := range resp {
         addResponse, err := AddOrder(ctx, &service_av1.Order_A{ Id: order.Id, Email: order.Email, Weight: order.Weight, Phonenumber: order.Phonenumber, Countrycode: order.Countrycode })
         if err != nil {
-        log.Printf("[Failed], addition attempt failed for order %s: %s":, order.Id, order.Email)
+        log.Printf("[Failed] addition attempt failed for order %s:%s ", order.Id, order.Email)
         }
     }
     return  &service_av1.PopulateDatabaseWithOrdersResponse{Success: true}, nil
