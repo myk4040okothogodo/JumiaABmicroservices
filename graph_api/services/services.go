@@ -4,8 +4,6 @@ package services
 import (
     "io"
     "log"
-
-    service_av1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A"
     service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
     "google.golang.org/grpc"
 )

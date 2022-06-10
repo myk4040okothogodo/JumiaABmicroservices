@@ -1,0 +1,16 @@
+From golang:1.18-stretch   #Downloading an image for graphql, books , holders service
+
+WORKDIR /JumiaABmicroservices
+
+#copying all dependencies to the container
+COPY ./go.mod  .
+COPY ./go.sum  .
+
+RUN go mod download
+
+#Exposing ports that will be available from the container
+EXPOSE 80
+EXPOSE 60001
+
+#Installing a work directory inside the container
+WORKDIR /JumiaABmicroservices
