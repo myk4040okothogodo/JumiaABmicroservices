@@ -68,11 +68,55 @@ func assertOrdersEqual(t *testing.T, expected *service_bv1.Order, actual *servic
 
 
 func createTestOrder(t *testing.T, operationContext context.Context, s *Server, testOrder *service_bv1.Order) *service_bv1.Order{
-    addResponse, err := s.
+    addResponse, err := s.AddOrder(operationContext, &service_bv1.AddOrderRequest{Order: testOrder})
+    assert.NoError(t, err)
+    assert.NotNil(t, addResponse)
+    assert.NotEmpty(t, addResponse.Order.Id)
+
+  return addResponse.Order
 }
 
-func TestAddOrder(t *testing.T){}
-func TestDeleteOrder(t *testing.T){}
+
+func TestAddOrder(t *testing.T){
+    contextWithTimeOut, cancelFn := context.WithTimeout(context.Background(), deadlinePerTest)
+    defer cancelFn()
+    srv := newTestServer(t, contextWithTimeOut)
+
+    createTestOrder(t, contextWithTimeout, srv, testOrder1)
+
+    //cannot create order with the same email because its unique
+    testOrder2.Email = testOrder1.Email
+    addResponse, err := srv.AddOrder(contextWithTimeout, &service_bv1.AddOrderRequest{Order: testOrder2})
+    assert.Error(t, err)
+    assert.Contains(t, err.Error(), "unique constraint violated")
+    assert.Nil(t, addResponse)
+
+}
+
+
+func TestDeleteOrder(t *testing.T){
+    contextWithTimeOut, cancelFn := context.WithTimeout(context.Background(), deadlinePerTest)
+    defer cancelFn()
+    srv := newTestServer(t, contextWithTimeOut)
+
+    testOrderWithId := createTestOrder(t, contextWithTimeOut, srv, testOrder1)
+    deleteResponse, err := srv.DeleteOrder(contextWithTimeOut, &service_bv1.DeleteOrderRequest{Id: testOrderWithId.Id})
+    assert.NoError(t, err)
+    assert.NotNil(t, deleteResponse)
+
+    deleteResponse, err = srv.DeleteOrder(contextWithTimeOut, &service_bv1.DeleteOrderRequest{Id: ""})
+	  assert.Error(t, err, "because id is empty")
+	  assert.Nil(t, deleteResponse)
+
+	  deleteResponse, err = srv.DeleteOrder(contextWithTimeOut, nil)
+	  assert.Error(t, err, "because request is empty")
+	  assert.Nil(t, deleteResponse)
+
+	  deleteResponse, err = srv.DeleteOrder(contextWithTimeOut, &service_bv1.DeleteOrderRequest{Id: "unknown"})
+	  assert.Error(t, err, "because id is unknown")
+	  assert.Nil(t, deleteResponse)
+
+}
 
 
 

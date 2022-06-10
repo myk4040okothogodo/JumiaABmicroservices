@@ -9,6 +9,7 @@ import (
     "os"
     "github.com/myk4040okothogodo/JumiaABmicroservices/db"
     service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
+    service_av1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A"
     "github.com/arangodb/go-driver"
     "google.golang.org/grpc"
     "google.golang.org/grpc/reflection"
@@ -22,9 +23,10 @@ const (
 type Server struct {
     database             driver.Database
     ordersCollection     driver.Collection
+    sa                   service_av1.ServiceA_APIClient
 }
 
-func NewServer(ctx context.Context, database driver.Database) (*Server, error) {
+func NewServer(ctx context.Context, database driver.Database, sa service_av1.ServiceA_APIClient) (*Server, error) {
     collection, err := db.AttachCollection(ctx, database, ordersCollectionName)
     if err != nil {
         return nil, err
@@ -38,6 +40,7 @@ func NewServer(ctx context.Context, database driver.Database) (*Server, error) {
     return &Server {
         database: database,
         ordersCollection: collection,
+        sa
     }, nil
 }
 
@@ -274,5 +277,55 @@ func (s *Server) GetOrdersByWeight(ctx context.Context, or *service_bv1.GetOrder
        orders = append(orders, order)
    }
    return &service_bv1.GetOrdersByWeightResponse{Orders: orders}, nil
+}
+
+func (s *Server) AddOrder(ctx context.Context, or *service_bv1.AddOrderRequest) (*service_bv1.AddOrderResponse, error) {
+	if or == nil || or.Order == nil {
+		return nil, fmt.Errorf("Order is not provided")
+	}
+
+	meta, err := s.ordersCollection.CreateDocument(ctx, in.Order)
+
+	if err != nil {
+		return nil, fmt.Errorf("Failed to create order: %s", err)
+	}
+
+	or.Order.Id = meta.Key
+	return &service_bv1.AddOrderResponse{Order: or.Order}, nil
+}
+
+func (s *Server) DeleteOrder(ctx context.Context, or *service_bv1.DeleteOrderRequest) (*service_bv1.DeleteOrderResponse, error) {
+	if or == nil || or.Id == "" {
+		return nil, fmt.Errorf("Order id is not provided")
+	}
+
+	_, err := s.ordersCollection.RemoveDocument(ctx, in.Id)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to remove existing order: %s", err)
+	}
+
+	return &service_bv1.DeleteOrderResponse{}, nil
+}
+
+func( s *Server) PopulateDatabaseWithOrders(ctx context.Context  or *service_bv1.PopulateDatabaseWithOrdersRequest)( *service_bv1.PopulateDatabaseWithOrdersResponse, error){
+    if or == nil || len(or.Orders) == 0 {
+        return nil, fmt.Errorf("Orders are not provided")
+    }
+    odz := &service_av1.DataRequest{
+        Token: "929302490shdjsasfd"
+    }
+
+    resp, err := s.sa.GetCsvData(ctx, odz)
+    if err != nil {
+        log.Printf("[Error] error getting csvdata from Service_A, :", err)
+        return
+    }
+    for _, order := range resp {
+        addResponse, err := AddOrder(ctx, &service_av1.Order_A{ Id: order.Id, Email: order.Email, Weight: order.Weight, Phonenumber: order.Phonenumber, Countrycode: order.Countrycode })
+        if err != nil {
+        log.Printf("[Failed], addition attempt failed for order %s: %s":, order.Id, order.Email)
+        }
+    }
+    return  &service_av1.PopulateDatabaseWithOrdersResponse{Success: true}, nil
 }
 

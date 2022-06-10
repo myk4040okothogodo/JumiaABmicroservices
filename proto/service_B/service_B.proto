@@ -7,7 +7,7 @@ import "proto/service_B/service_B_messages.proto";
 
 service ServiceB_API {
     // Populate database with Orders
-    rpc PopulateDatabaseWithOrders(PopulateDatabaseWithOrdersRequest) returns (PopulateDatabaseWithOrdersResponse)
+    rpc PopulateDatabaseWithOrders(PopulateDatabaseWithOrdersRequest) returns (PopulateDatabaseWithOrdersResponse);
     // get order using id
     rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
     // Get Order by email
@@ -23,7 +23,7 @@ service ServiceB_API {
     // Get Orders as per date
     rpc GetOrdersAsPerDate(GetOrdersasPerDateRequest) returns (GetOrdersasPerDateResponse);
     // Add a new Order
-    rpc AddOrder(AddOrderRequest) return (AddOrderResponse);
+    rpc AddOrder(AddOrderRequest) returns (AddOrderResponse);
     // Delete Order request
     rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderResponse);
   }

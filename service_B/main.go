@@ -9,6 +9,7 @@ import (
     "time"
     "github.com/myk4040okothogodo/JumiaABmicroservices/service_B/server"
     "github.com/myk4040okothogodo/JumiaABmicroservices/db"
+    service_av1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A"
 )
 
 
@@ -16,13 +17,24 @@ func main(){
 
   ctx, cancelFn := context.WithTimeout(context.Background(), time.Second*5)
   defer cancelFn()
+ 
+  conn,err := grpc.Dial("localhost: 60001", grpc.WithInsecure())
+  if err != nil {
+    log.Printf("Couldnt connect with  'service_A' service :", err)
+  }
+  defer conn.Close()
+
+
+  //create client
+  sa := service_av1.NewServiceA_APIClient(conn)
+
 
   database, err := db.Connect(ctx, db.GetDbConfig())
   if err != nil {
       log.Fatalf("d.OpenDatabase failed with error: %s", err)
   }
 
-  srv, err := server.NewServer(ctx, database)
+  srv, err := server.NewServer(ctx, database, sa)
   if err != nil {
      log.Fatalf("NewServer failed with error: %s", err)
   }

@@ -22,6 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceB_APIClient interface {
+	// Populate database with Orders
+	PopulateDatabaseWithOrders(ctx context.Context, in *PopulateDatabaseWithOrdersRequest, opts ...grpc.CallOption) (*PopulateDatabaseWithOrdersResponse, error)
 	// get order using id
 	GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error)
 	// Get Order by email
@@ -36,6 +38,10 @@ type ServiceB_APIClient interface {
 	GetWeightofAllOrdersPerCountry(ctx context.Context, in *GetCountryOrdersWeightRequest, opts ...grpc.CallOption) (*GetCountryOrdersWeightResponse, error)
 	// Get Orders as per date
 	GetOrdersAsPerDate(ctx context.Context, in *GetOrdersasPerDateRequest, opts ...grpc.CallOption) (*GetOrdersasPerDateResponse, error)
+	// Add a new Order
+	AddOrder(ctx context.Context, in *AddOrderRequest, opts ...grpc.CallOption) (*AddOrderResponse, error)
+	// Delete Order request
+	DeleteOrder(ctx context.Context, in *DeleteOrderRequest, opts ...grpc.CallOption) (*DeleteOrderResponse, error)
 }
 
 type serviceB_APIClient struct {
@@ -44,6 +50,15 @@ type serviceB_APIClient struct {
 
 func NewServiceB_APIClient(cc grpc.ClientConnInterface) ServiceB_APIClient {
 	return &serviceB_APIClient{cc}
+}
+
+func (c *serviceB_APIClient) PopulateDatabaseWithOrders(ctx context.Context, in *PopulateDatabaseWithOrdersRequest, opts ...grpc.CallOption) (*PopulateDatabaseWithOrdersResponse, error) {
+	out := new(PopulateDatabaseWithOrdersResponse)
+	err := c.cc.Invoke(ctx, "/JumiaABmicroservices.grpc.service_B.v1.ServiceB_API/PopulateDatabaseWithOrders", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *serviceB_APIClient) GetOrder(ctx context.Context, in *GetOrderRequest, opts ...grpc.CallOption) (*GetOrderResponse, error) {
@@ -109,10 +124,30 @@ func (c *serviceB_APIClient) GetOrdersAsPerDate(ctx context.Context, in *GetOrde
 	return out, nil
 }
 
+func (c *serviceB_APIClient) AddOrder(ctx context.Context, in *AddOrderRequest, opts ...grpc.CallOption) (*AddOrderResponse, error) {
+	out := new(AddOrderResponse)
+	err := c.cc.Invoke(ctx, "/JumiaABmicroservices.grpc.service_B.v1.ServiceB_API/AddOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceB_APIClient) DeleteOrder(ctx context.Context, in *DeleteOrderRequest, opts ...grpc.CallOption) (*DeleteOrderResponse, error) {
+	out := new(DeleteOrderResponse)
+	err := c.cc.Invoke(ctx, "/JumiaABmicroservices.grpc.service_B.v1.ServiceB_API/DeleteOrder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceB_APIServer is the server API for ServiceB_API service.
 // All implementations must embed UnimplementedServiceB_APIServer
 // for forward compatibility
 type ServiceB_APIServer interface {
+	// Populate database with Orders
+	PopulateDatabaseWithOrders(context.Context, *PopulateDatabaseWithOrdersRequest) (*PopulateDatabaseWithOrdersResponse, error)
 	// get order using id
 	GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error)
 	// Get Order by email
@@ -127,6 +162,10 @@ type ServiceB_APIServer interface {
 	GetWeightofAllOrdersPerCountry(context.Context, *GetCountryOrdersWeightRequest) (*GetCountryOrdersWeightResponse, error)
 	// Get Orders as per date
 	GetOrdersAsPerDate(context.Context, *GetOrdersasPerDateRequest) (*GetOrdersasPerDateResponse, error)
+	// Add a new Order
+	AddOrder(context.Context, *AddOrderRequest) (*AddOrderResponse, error)
+	// Delete Order request
+	DeleteOrder(context.Context, *DeleteOrderRequest) (*DeleteOrderResponse, error)
 	//mustEmbedUnimplementedServiceB_APIServer()
 }
 
@@ -134,6 +173,9 @@ type ServiceB_APIServer interface {
 type UnimplementedServiceB_APIServer struct {
 }
 
+func (UnimplementedServiceB_APIServer) PopulateDatabaseWithOrders(context.Context, *PopulateDatabaseWithOrdersRequest) (*PopulateDatabaseWithOrdersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PopulateDatabaseWithOrders not implemented")
+}
 func (UnimplementedServiceB_APIServer) GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrder not implemented")
 }
@@ -155,6 +197,12 @@ func (UnimplementedServiceB_APIServer) GetWeightofAllOrdersPerCountry(context.Co
 func (UnimplementedServiceB_APIServer) GetOrdersAsPerDate(context.Context, *GetOrdersasPerDateRequest) (*GetOrdersasPerDateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrdersAsPerDate not implemented")
 }
+func (UnimplementedServiceB_APIServer) AddOrder(context.Context, *AddOrderRequest) (*AddOrderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddOrder not implemented")
+}
+func (UnimplementedServiceB_APIServer) DeleteOrder(context.Context, *DeleteOrderRequest) (*DeleteOrderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrder not implemented")
+}
 //func (UnimplementedServiceB_APIServer) mustEmbedUnimplementedServiceB_APIServer() {}
 
 // UnsafeServiceB_APIServer may be embedded to opt out of forward compatibility for this service.
@@ -166,6 +214,24 @@ func (UnimplementedServiceB_APIServer) GetOrdersAsPerDate(context.Context, *GetO
 
 func RegisterServiceB_APIServer(s grpc.ServiceRegistrar, srv ServiceB_APIServer) {
 	s.RegisterService(&ServiceB_API_ServiceDesc, srv)
+}
+
+func _ServiceB_API_PopulateDatabaseWithOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PopulateDatabaseWithOrdersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceB_APIServer).PopulateDatabaseWithOrders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/JumiaABmicroservices.grpc.service_B.v1.ServiceB_API/PopulateDatabaseWithOrders",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceB_APIServer).PopulateDatabaseWithOrders(ctx, req.(*PopulateDatabaseWithOrdersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceB_API_GetOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -294,6 +360,42 @@ func _ServiceB_API_GetOrdersAsPerDate_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceB_API_AddOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceB_APIServer).AddOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/JumiaABmicroservices.grpc.service_B.v1.ServiceB_API/AddOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceB_APIServer).AddOrder(ctx, req.(*AddOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceB_API_DeleteOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceB_APIServer).DeleteOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/JumiaABmicroservices.grpc.service_B.v1.ServiceB_API/DeleteOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceB_APIServer).DeleteOrder(ctx, req.(*DeleteOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceB_API_ServiceDesc is the grpc.ServiceDesc for ServiceB_API service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -301,6 +403,10 @@ var ServiceB_API_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "JumiaABmicroservices.grpc.service_B.v1.ServiceB_API",
 	HandlerType: (*ServiceB_APIServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "PopulateDatabaseWithOrders",
+			Handler:    _ServiceB_API_PopulateDatabaseWithOrders_Handler,
+		},
 		{
 			MethodName: "GetOrder",
 			Handler:    _ServiceB_API_GetOrder_Handler,
@@ -328,6 +434,14 @@ var ServiceB_API_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOrdersAsPerDate",
 			Handler:    _ServiceB_API_GetOrdersAsPerDate_Handler,
+		},
+		{
+			MethodName: "AddOrder",
+			Handler:    _ServiceB_API_AddOrder_Handler,
+		},
+		{
+			MethodName: "DeleteOrder",
+			Handler:    _ServiceB_API_DeleteOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
