@@ -4,7 +4,7 @@ package resolvers
 //
 // It serves as dependency injection for your app, add any dependencies you require here.
 import (
-    "github.com/myk4040okothogodo/JumiaServices/graph_api/services"
+    "github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services"
 )
 
 
