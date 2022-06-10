@@ -24,3 +24,5 @@ require (
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )
+
+replace github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A => ../../gen/go/service_A

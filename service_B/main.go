@@ -10,6 +10,7 @@ import (
     "github.com/myk4040okothogodo/JumiaABmicroservices/service_B/server"
     "github.com/myk4040okothogodo/JumiaABmicroservices/db"
     service_av1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A"
+    "google.golang.org/grpc"
 )
 
 

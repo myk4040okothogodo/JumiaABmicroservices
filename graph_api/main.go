@@ -18,7 +18,7 @@ import (
     "github.com/gorilla/mux"
 )
 
-const defaultPort = "80"
+const defaultPort = "8080"
 const  defaultServiceBSvc = "localhost:60001"
 func parseEnvVars(key string) string {
     // load .env file
@@ -85,7 +85,7 @@ func main() {
     <-sig
     ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
     defer cancel()
-    log.Print("Shutting down graph_api  GateWay server")
+    log.Print("Shutting down JumiaGraphql GateWay server")
 
     if err := srv.Shutdown(ctx); err != nil {
         log.Print(err)

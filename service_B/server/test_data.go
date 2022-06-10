@@ -1,7 +1,7 @@
 package server
 
 import (
-    service_bv1 "github.com/gen/go/service_B"
+    service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
 
 )
 

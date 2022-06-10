@@ -6,7 +6,7 @@ import (
     "os"
     "testing"
     "time"
-    "github.com/myk4040okothogodo/JumiaABmicroservices"
+    "github.com/myk4040okothogodo/JumiaABmicroservices/db"
     "github.com/arangodb/go-driver"
     "github.com/stretchr/testify/assert"
     service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"

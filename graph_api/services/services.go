@@ -25,7 +25,7 @@ type Services interface {
 
 
 func NewServicesKeeper(conf ServicesConfig)(Services, error) {
-    log.Printf("Connection to ServiceB service: %s...", conf.ServiceBSvc)
+    log.Printf("Connecting to ServiceB service at : %s...", conf.ServiceBSvc)
     servicebConnection, err := grpc.Dial(conf.ServiceBSvc, grpc.WithInsecure())
     if err != nil {
         return nil, err
