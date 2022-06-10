@@ -39,13 +39,13 @@ func NewServicesKeeper(conf ServicesConfig)(Services, error) {
 }
 
 func (sh *services)  ServiceB() service_bv1.ServiceB_APIClient {
-    return ah.serviceBClient
+    return sh.serviceBClient
 }
 
 
 
 func (sh *services) Close() error {
-    err := ah.serviceBClientConn.Close()
+    err := sh.serviceBClientConn.Close()
     if err != nil {
         log.Printf("An error occurred while closing connection on ServiceB service: %s", err)
     }

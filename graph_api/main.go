@@ -86,7 +86,7 @@ func main() {
     ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
     defer.cancel()
 
-    log.Print("SHutting down graph_api server")
+    log.Print("Shutting down graph_api server")
 
     if err := srv.Shutdown(ctx); err != nil {
         log.Print(err)
