@@ -11,9 +11,9 @@ replace github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services => 
 replace github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/gen => ../gen
 
 require (
-	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B v0.0.0-00010101000000-000000000000
+	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B v0.0.0-20220610071312-0375c1474ac5 
 	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/gen v0.0.0-00010101000000-000000000000
-	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/model v0.0.0-00010101000000-000000000000
+	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/model v0.0.0-20220610071312-0375c1474ac5
 	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services v0.0.0-00010101000000-000000000000
 )
 
