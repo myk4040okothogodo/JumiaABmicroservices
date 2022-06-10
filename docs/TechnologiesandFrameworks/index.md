@@ -1,4 +1,5 @@
 Thought Process
+
 The technologies and softwares that i have used in this application, have been well thought out to maximize the effeciency of application building process and  also
 extend into production , where according to me this was the most optimal assembly to ensure application performance is at Optimum.
 
