@@ -19,7 +19,7 @@ import (
 )
 
 const defaultPort = "80"
-const  defaultServiceBSvc = "localhost:9092"
+const  defaultServiceBSvc = "localhost:60001"
 func parseEnvVars(key string) string {
     // load .env file
     err := godotenv.Load(".env")
@@ -59,8 +59,8 @@ func main() {
     // Create graphAPI handlers
     router := mux.NewRouter()
     graphAPIHandler := handler.NewDefaultServer(gen.NewExecutableSchema(gen.Config{Resolvers: resolvers.NewResolver(svc)}))
-    router.Handle("/", playground.Handler("GraphQL playground", "/tutorial"))
-    router.Handle("/tutorial", graphAPIHandler)
+    router.Handle("/", playground.Handler("GraphQL playground", "/jumiaABmicroservices"))
+    router.Handle("/jumiaABmicroservices", graphAPIHandler)
 
 
     srv := &http.Server{
@@ -85,7 +85,7 @@ func main() {
     <-sig
     ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
     defer cancel()
-    log.Print("Shutting down graph_api server")
+    log.Print("Shutting down graph_api  GateWay server")
 
     if err := srv.Shutdown(ctx); err != nil {
         log.Print(err)

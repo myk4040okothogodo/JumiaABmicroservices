@@ -44,7 +44,7 @@ func (s *Server) Run() {
         port = defaultPort
     }
 
-    listener, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0: %s", port))
+    listener, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%s", port))
     if err != nil {
         log.Print("net.Listen failed")
         return

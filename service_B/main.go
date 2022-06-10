@@ -18,7 +18,7 @@ func main(){
   ctx, cancelFn := context.WithTimeout(context.Background(), time.Second*5)
   defer cancelFn()
  
-  conn,err := grpc.Dial("localhost: 60001", grpc.WithInsecure())
+  conn,err := grpc.Dial("localhost:60002", grpc.WithInsecure())
   if err != nil {
     log.Printf("Couldnt connect with  'service_A' service :", err)
   }
