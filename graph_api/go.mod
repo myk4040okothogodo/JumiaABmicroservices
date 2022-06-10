@@ -7,7 +7,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/joho/godotenv v1.4.0
 	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/gen v0.0.0-20220610072511-b0543bf2943c
-	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/resolvers v0.0.0-20220610082808-3dba8a0c130c //v0.0.0-20220610082030-246a1f32c57f
+	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/resolvers v0.0.0-20220610083304-f5dd1852eec4 //v0.0.0-20220610082808-3dba8a0c130c
 	github.com/myk4040okothogodo/JumiaABmicroservices/graph_api/services v0.0.0-20220610073145-f48e4849383a
 )
 

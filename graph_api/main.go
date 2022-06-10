@@ -40,7 +40,7 @@ func main() {
         port = defaultPort
     }
 
-    ServiceBSvc := os.Getenv("SERVICEB_SERVICE")
+    serviceBSvc := os.Getenv("SERVICEB_SERVICE")
     if serviceBSvc == "" {
         log.Printf("Failed to load 'SERVICEB_SERVICE'(you can set manually) system is reverting to default %s", defaultServiceBSvc )
         serviceBSvc = defaultServiceBSvc
@@ -60,7 +60,7 @@ func main() {
     router := mux.NewRouter()
     graphAPIHandler := handler.NewDefaultServer(gen.NewExecutableSchema(gen.Config{Resolvers: resolvers.NewResolver(svc)}))
     router.Handle("/", playground.Handler("GraphQL playground", "/tutorial"))
-    router.Handle("/tutorial", graphAPIhandler)
+    router.Handle("/tutorial", graphAPIHandler)
 
 
     srv := &http.Server{
@@ -84,8 +84,7 @@ func main() {
     //Block untill cancel signal is received
     <-sig
     ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-    defer.cancel()
-
+    defer cancel()
     log.Print("Shutting down graph_api server")
 
     if err := srv.Shutdown(ctx); err != nil {
