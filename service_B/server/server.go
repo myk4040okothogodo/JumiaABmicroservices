@@ -318,14 +318,15 @@ func( s *Server) PopulateDatabaseWithOrders(ctx context.Context,  or *service_bv
     resp, err := s.sa.GetCsvData(ctx, odz)
     if err != nil {
         log.Printf("[Error] error getting csvdata from Service_A, :", err)
-        return
+        return nil, err
     }
-    for _, order := range resp {
-        addResponse, err := AddOrder(ctx, &service_av1.Order_A{ Id: order.Id, Email: order.Email, Weight: order.Weight, Phonenumber: order.Phonenumber, Countrycode: order.Countrycode })
+    log.Printf("response %v", resp)
+    for _, order := range resp.OrdersA {
+      _ , err := s.AddOrder(ctx, &service_bv1.AddOrderRequest{Order: &service_bv1.Order{ Id: order.Id, Email: order.Email, Weight: order.Weight, Phonenumber: order.Phonenumber, Countrycode: order.Countrycode }})
         if err != nil {
         log.Printf("[Failed] addition attempt failed for order %s:%s ", order.Id, order.Email)
         }
     }
-    return  &service_av1.PopulateDatabaseWithOrdersResponse{Success: true}, nil
+    return  &service_bv1.PopulateDatabaseWithOrdersResponse{Success: true}, nil
 }
 

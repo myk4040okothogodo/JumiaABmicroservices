@@ -8,7 +8,7 @@ replace github.com/myk4040okothogodo/JumiaABmicroservices/db => ../db
 
 require (
 	github.com/myk4040okothogodo/JumiaABmicroservices/db v0.0.0-20220610170739-ce2b820120b7
-	github.com/myk4040okothogodo/JumiaABmicroservices/service_B/server v0.0.0-20220610171236-eb731271eb6c 
+	github.com/myk4040okothogodo/JumiaABmicroservices/service_B/server v0.0.0-20220610171236-eb731271eb6c
 )
 
 require (
@@ -39,7 +39,7 @@ require (
 	github.com/moby/sys/mountinfo v0.5.0 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/morikuni/aec v0.0.0-20170113033406-39771216ff4c // indirect
-	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B v0.0.0-20220609223108-628e2bf87e55 // indirect
+	github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B v0.0.0-20220610173525-7919c08ec457 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/opencontainers/runc v1.0.2 // indirect
@@ -51,7 +51,7 @@ require (
 	golang.org/x/sys v0.0.0-20211124211545-fe61309f8881 // indirect
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/genproto v0.0.0-20201110150050-8816d57aaa9a // indirect
-	google.golang.org/protobuf v1.27.1 // indirect
+	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
