@@ -308,9 +308,8 @@ func (s *Server) DeleteOrder(ctx context.Context, or *service_bv1.DeleteOrderReq
 }
 
 func( s *Server) PopulateDatabaseWithOrders(ctx context.Context,  or *service_bv1.PopulateDatabaseWithOrdersRequest)( *service_bv1.PopulateDatabaseWithOrdersResponse, error){
-    if or == nil || len(or.Orders) == 0 {
-        return nil, fmt.Errorf("Orders are not provided")
-    }
+    
+    
     odz := &service_av1.DataRequest{
         Token: "92930249056546shdjsasfd",
     }
