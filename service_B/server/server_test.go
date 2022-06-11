@@ -10,11 +10,13 @@ import (
     "github.com/arangodb/go-driver"
     "github.com/stretchr/testify/assert"
     service_bv1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_B"
-)
+    service_av1 "github.com/myk4040okothogodo/JumiaABmicroservices/gen/go/service_A"
+    "google.golang.org/grpc"
+  )
 
 
 const (
-    dbNameForTests          = "ServiveBTest"
+    dbNameForTests          = "ServiceBTest"
     deadlinePerTest         = time.Duration(5 * time.Second)
     deadlineOnStartContainerForTests = time.Duration(60 * time.Second)
 )
@@ -35,15 +37,23 @@ func TestMain(m *testing.M) {
     log.Printf("Success. \n")
 
     defer testContainer.Terminate(ctx)
-    os.Exit(m.Run)
+    os.Exit(m.Run())
 
 }
 
 func newTestServer(t *testing.T, operationContext context.Context) *Server {
+   conn, err := grpc.Dial("localhost:60002", grpc.WithInsecure())
+   if err != nil {
+       log.Println("count connect to grpc server")
+   }
+   defer conn.Close()
+   sa := service_av1.NewServiceA_APIClient(conn)
+   assett.NoError(t, err)
+
     db, err := db.Connect(operationContext, dbConf)
     assert.NoError(t, err)
 
-    col, err := db.Collection(operationCotext, ordersCollectionName)
+    col, err := db.Collection(operationContext, ordersCollectionName)
     if err != nil {
         assert.True(t, driver.IsNotFound(err))
     } else {
@@ -51,7 +61,7 @@ func newTestServer(t *testing.T, operationContext context.Context) *Server {
         assert.NoError(t, err)
     }
 
-    srv, err := NewServer(operationContext, db)
+    srv, err := NewServer(operationContext, db, sa)
     assert.NoError(t, err)
     return srv
 }
@@ -82,11 +92,11 @@ func TestAddOrder(t *testing.T){
     defer cancelFn()
     srv := newTestServer(t, contextWithTimeOut)
 
-    createTestOrder(t, contextWithTimeout, srv, testOrder1)
+    createTestOrder(t, contextWithTimeOut, srv, testOrder1)
 
     //cannot create order with the same email because its unique
     testOrder2.Email = testOrder1.Email
-    addResponse, err := srv.AddOrder(contextWithTimeout, &service_bv1.AddOrderRequest{Order: testOrder2})
+    addResponse, err := srv.AddOrder(contextWithTimeOut, &service_bv1.AddOrderRequest{Order: testOrder2})
     assert.Error(t, err)
     assert.Contains(t, err.Error(), "unique constraint violated")
     assert.Nil(t, addResponse)
