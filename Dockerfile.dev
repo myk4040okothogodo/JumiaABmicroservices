@@ -1,19 +1,17 @@
 From golang:1.18-stretch   
 
-WORKDIR /microservices4jumia
+WORKDIR /JumiaABmicroservices
 
 #copying all dependencies to the container
-COPY   go.* .
+COPY   ./go.mod  .
+COPY   ./go.sum  .
 
 RUN go mod download
 
-COPY . .
-
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 #Exposing ports that will be available from the container
 EXPOSE 8080
 EXPOSE 60001
 EXPOSE 60002
 
 #Installing a work directory inside the container
-WORKDIR /microservices4jumia
+WORKDIR /JumiaABmicroservices

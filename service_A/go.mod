@@ -4,7 +4,7 @@ go 1.18
 
 replace github.com/myk4040okothogodo/JumiaABmicroservices/service_A/server => ./server
 
-require github.com/myk4040okothogodo/JumiaABmicroservices/service_A/server v0.0.0-00010101000000-000000000000
+require github.com/myk4040okothogodo/JumiaABmicroservices/service_A/server v0.0.0-20220611070458-2e931f87419f //v0.0.0-00010101000000-000000000000
 
 require (
 	github.com/golang/protobuf v1.5.2 // indirect
